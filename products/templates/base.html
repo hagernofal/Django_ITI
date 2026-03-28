@@ -1,0 +1,182 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Products{% endblock %}</title>
+    <style>
+      :root {
+        --bg-0:#fffdfa;
+        --bg-1:#f5f5f5;
+        --card:#ffffff;
+        --card-2:#f9f9f9;
+        --stroke:rgba(0,0,0,.08);
+        --text:#1a1a1a;
+        --muted:rgba(26,26,26,.6);
+        --brand:#ff6b6b;
+        --brand-2:#ff4757;
+        --shadow:0 8px 30px rgba(0,0,0,.08);
+        --radius:12px;
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+        color:var(--text);
+        background: linear-gradient(135deg, var(--bg-0), var(--bg-1));
+        overflow-x:hidden;
+      }
+
+      .wrap{position:relative; min-height:100vh; display:flex; flex-direction:column;}
+
+      header{
+        padding:12px 16px;
+        position: sticky;
+        top:0;
+        z-index:999;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-pill{
+        width:min(760px, 96vw);
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:10px 16px;
+        border-radius:999px;
+        background:rgba(255,255,255,.85);
+        border:1px solid rgba(0,0,0,.05);
+        box-shadow:0 8px 20px rgba(0,0,0,.08);
+      }
+
+      .nav-left{display:flex; align-items:center; gap:10px; text-decoration:none;}
+      .brand-icon{
+        width:34px; height:34px; border-radius:12px;
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        box-shadow:0 10px 25px rgba(255,107,107,.2);
+        border:1px solid rgba(0,0,0,.08);
+        position:relative; display:inline-block;
+      }
+      .brand-icon:before{
+        content:""; position:absolute; left:8px; top:8px; width:18px; height:18px;
+        border-radius:6px; background:rgba(0,0,0,.05); border:1px solid rgba(0,0,0,.1);
+      }
+      .brand-icon:after{
+        content:"IQ"; position:absolute; left:50%; top:50%;
+        transform:translate(-50%,-56%);
+        font-weight:900; color:#fff; font-size:11px; letter-spacing:-.5px;
+      }
+      .brand-text{font-weight:900; letter-spacing:-.3px; color:var(--text); font-size:16px;}
+
+      .nav-right{display:flex; align-items:center; gap:22px;}
+      .nav-link{
+        text-decoration:none; color:var(--muted); font-weight:600; font-size:14px;
+        padding:9px 12px; border-radius:999px;
+        transition: transform .15s ease, background .15s ease, color .15s ease;
+      }
+      .nav-link:hover{
+        color:var(--text); background:rgba(255,107,107,.15); transform:translateY(-1px);
+      }
+      .nav-link.active{
+        color:#fff; background:linear-gradient(135deg, var(--brand), var(--brand-2));
+        border:1px solid rgba(255,107,107,.6);
+      }
+
+      .page-hero{width:min(1120px,96vw); margin:20px auto 0; padding:20px 16px; text-align:center;}
+      .page-hero h1{margin:0 0 8px; font-size:36px; line-height:1.2;}
+      .page-hero p{margin:0; color:var(--muted); max-width:720px; font-size:15px; margin-left:auto; margin-right:auto;}
+
+      .divider{width:min(1120px,96vw); height:1px; margin:18px auto; background:linear-gradient(90deg, transparent, rgba(255,107,107,.55), transparent);}
+
+      main{width:min(1120px,96vw); margin:18px auto 44px; flex:1 0 auto;}
+
+      .card{
+        background:var(--card);
+        border:1px solid var(--stroke);
+        border-radius:var(--radius);
+        box-shadow: var(--shadow);
+      }
+      .content{padding:20px;}
+      .grid{display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:16px;}
+
+      @media (max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));} .page-hero h1{font-size:28px;}}
+      @media (max-width:540px){.grid{grid-template-columns:1fr;}}
+
+      .btn{
+        display:inline-flex; align-items:center; justify-content:center; gap:10px;
+        padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700;
+        border:1px solid var(--stroke); transition: all .15s ease; cursor:pointer;
+      }
+      .btn:active{transform:translateY(1px);}
+      .btn-primary{
+        background:linear-gradient(135deg, var(--brand), var(--brand-2));
+        color:#fff; border-color: rgba(255,107,107,.35);
+      }
+      .btn-primary:hover{
+        background:linear-gradient(135deg, #ff6b6b, #ff3030); border-color: rgba(255,107,107,.55);
+      }
+      .btn-ghost{
+        background:rgba(0,0,0,.03); color:var(--text);
+      }
+      .btn-ghost:hover{
+        background:rgba(0,0,0,.08); border-color: rgba(0,0,0,.1);
+      }
+
+      footer{width:min(1120px,96vw); margin:0 auto 26px; padding:0 6px;}
+      .footer-pill{
+        border-radius:999px; padding:12px 18px; background:#f5f5f5;
+        border:1px solid #e0e0e0; color:#555; font-size:13px; text-align:center;
+      }
+      .pill{
+        display:inline-flex; align-items:center; gap:8px;
+        border-radius:999px; padding:8px 12px;
+        background:rgba(255,107,107,.15);
+        border:1px solid rgba(255,107,107,.3);
+        color:#fff; font-weight:700; font-size:13px;
+      }
+      .pill-strong{
+        background:linear-gradient(135deg, rgba(255,107,107,.3), rgba(255,71,87,.2));
+        border:1px solid rgba(255,71,87,.6);
+        color:#9a3434;
+        box-shadow:0 10px 30px rgba(255,71,87,.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        {% with url_name=request.resolver_match.url_name %}
+          <div class="nav-pill">
+            <a class="nav-left" href="{% url 'products' %}">
+              <span class="brand-text">Carttick</span>
+            </a>
+            <div class="nav-right">
+              <a class="nav-link {% if url_name == 'products' or url_name == 'product.profile' %}active{% endif %}" href="{% url 'products' %}">Products</a>
+              <a class="nav-link {% if url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
+              <a class="nav-link {% if url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+              <a class="nav-link {% if url_name == 'categories' %}active{% endif %}" href="{% url 'categories' %}">Category</a>
+            </div>
+          </div>
+        {% endwith %}
+      </header>
+
+      <section class="page-hero">
+        {% block page_header %}
+          <h1>Welcome</h1>
+          <p>Browse, explore, and open product profiles with a modern UI.</p>
+        {% endblock %}
+      </section>
+      <div class="divider"></div>
+
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+
+      
+    </div>
+  </body>
+</html>

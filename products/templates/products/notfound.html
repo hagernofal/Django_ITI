@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Not Found{% endblock %}
+
+{% block page_header %}
+  <h1>Product not found</h1>
+{% endblock %}
+
+{% block content %}
+  <div style="display:flex; justify-content:center; align-items:center; height:150px;">
+    <a class="btn btn-primary" href="{% url 'products' %}">Back to products</a>
+  </div>
+{% endblock %}

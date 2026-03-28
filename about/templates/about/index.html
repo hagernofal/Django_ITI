@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block page_header %}
+  <h1>About</h1>
+  <p style="color:var(--muted); font-size:14px; margin-top:6px;">
+    welcome to the about page.
+  </p>
+{% endblock %}
+
+{% block content %}
+  
+  <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center; ">
+    <a class="btn btn-primary" href="{% url 'products' %}" style="min-width:140px;">Browse Products</a>
+    <a class="btn btn-ghost" href="{% url 'contact' %}" style="min-width:140px;">Contact Us</a>
+  </div>
+  
+{% endblock %}
