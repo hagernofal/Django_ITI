@@ -18,10 +18,15 @@ from django.contrib import admin
 from django.urls import include, path 
 from django.conf.urls.static import static
 from django.conf import settings
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
-    path('categories/', include('category.urls'))
+    path('categories/', include('category.urls')),
+    path('apis/products/', include('products.apis.urls')),
+    path('apis/categories/', include('category.apis.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

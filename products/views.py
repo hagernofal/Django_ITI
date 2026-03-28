@@ -68,3 +68,6 @@ def edit(request, id):
         "product": product,
         "categories": categories
     })
+
+
+

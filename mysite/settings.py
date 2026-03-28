@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'contact.apps.ContactConfig',
     'category.apps.CategoryConfig',
-    'django_cleanup.apps.CleanupConfig'
+    'django_cleanup.apps.CleanupConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
